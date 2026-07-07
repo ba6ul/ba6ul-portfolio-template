@@ -4,6 +4,7 @@ import Image from "next/image";
 import { ExternalLink, GitBranch } from "lucide-react";
 import { motion } from "framer-motion";
 import { useRouter } from "next/navigation";
+import { Cherry_Bomb_One } from "next/font/google";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -16,11 +17,13 @@ import {
 import type { Project } from "@/data/projects";
 import { getTechIcon } from "@/data/techIcons";
 
+const cherryBomb = Cherry_Bomb_One({ weight: "400", subsets: ["latin"] });
+
 interface ProjectCardProps {
   project: Project;
 }
 
-const ACCENT = "#2440D6";
+const ACCENT = "#C15F3C";
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const router = useRouter();
@@ -70,7 +73,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
               : undefined
           }
         >
-          {/* Image */}
           <div className="relative aspect-video w-full overflow-hidden rounded-2xl">
             <Image
               src={image}
@@ -80,17 +82,17 @@ export function ProjectCard({ project }: ProjectCardProps) {
               priority={featured}
             />
           </div>
+
           <CardContent className="flex flex-1 flex-col gap-3 px-2 pt-4 pb-0">
             
             <h3
-              className={`min-h-8 text-3xl font-extrabold leading-tight tracking-tight sm:text-5xl md:text-6xl lg:text-7xl ${
+              className={`${cherryBomb.className} min-h-8 text-4xl leading-relaxed sm:text-5xl md:text-6xl lg:text-7xl ${
                 featured ? "text-white" : "text-foreground"
               }`}
             >
-              {/* Name */}
               {title}
             </h3>
-              
+
             <p
               className={
                 featured
@@ -98,12 +100,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   : "line-clamp-2 min-h-10 text-sm leading-relaxed text-muted-foreground"
               }
             >
-              {/* Description */}
               {description}
             </p>
 
             <div className="flex flex-wrap items-center gap-2 pt-1">
-              {/* Category Badge */}
+
               <Badge
                 variant="secondary"
                 className={
@@ -115,7 +116,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
                 {category}
               </Badge>
 
-              {/* Tech Pills */}
               {tech && tech.length > 0 && (
                 <TooltipProvider delayDuration={150}>
                   <div className="flex flex-wrap items-center gap-2">
@@ -158,7 +158,6 @@ export function ProjectCard({ project }: ProjectCardProps) {
             </div>
           </CardContent>
           
-          {/* Bottom action buttons layout context */}
           <CardFooter className="gap-2 px-2 pb-2 pt-4">
             {github && (
               <Button
