@@ -1,4 +1,4 @@
-import { techExperience } from "./demo_experience";
+import { techExperience } from "./ba6ul_experience_demo";
 import herobabulImage from "@/assets/images/hero_babul.webp";
 import herobabulblurImage from "@/assets/images/hero_babul_blur.webp";
 

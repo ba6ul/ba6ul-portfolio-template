@@ -1,6 +1,6 @@
 // @/components/profile/VideoShowcase.tsx
 
-import { videos } from "@/data/videos";
+import { videos } from "@/data/content/videos";
 import { getYoutubeMeta } from "@/lib/youtube";
 import { VideoShowcaseClient } from "./VideoShowcaseClient";
 

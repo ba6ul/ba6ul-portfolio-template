@@ -5,12 +5,19 @@ export interface Project {
   category: string;
   image: string;
   type: "code" | "video";
-  routeType: "apps" | "games" | "web"; // determines internal detail page prefix
   tech?: string[];        // matched against techIconMap in techIcons.ts
   github?: string;        // present if open source / code is public
   live?: string;          // Play Store / demo / production link
   devlog?: string;        // optional devlog video/post link
   featured?: boolean;     // true = renders with the solid accent color treatment
+
+  // Detail page fields (/projects/[id]) — all optional, only "code" type
+  // projects get a detail page. Fill in as content becomes available;
+  // placeholder empty-states are shown for anything left unset.
+  tagline?: string;
+  screenshots?: string[]; // filenames under public/projects/<id>/
+  features?: { icon: string; title: string; description: string }[];
+  stats?: { label: string; value: string }[];
 }
 
 export const portfolio: {
@@ -27,11 +34,28 @@ export const portfolio: {
       category: "Mobile",
       image: "/app_banner/vishram_banner.png",
       type: "code",
-      routeType: "apps",
       tech: ["Flutter", "Dart", "BLoC","TMDB"],
       github: "https://github.com/ba6ul/vishram",
       live: "https://play.google.com/store/apps/details?id=com.haripin.vishram",
       featured: true,
+      tagline: "Your personal movie companion",
+      features: [
+        {
+          icon: "🎬",
+          title: "Four watchlist states",
+          description: "Saved, watching, done, and liked. Every movie has its place.",
+        },
+        {
+          icon: "🏆",
+          title: "Badges & achievements",
+          description: "Unlock 47 badges as you track more movies and explore new genres.",
+        },
+        {
+          icon: "🎭",
+          title: "Directors & actors",
+          description: "Follow your favourite directors and actors to never miss their work.",
+        },
+      ],
     },
     {
       id: "sudoku",
@@ -41,7 +65,6 @@ export const portfolio: {
       category: "Mobile",
       image: "/app_banner/sudoku_banner.png",
       type: "code",
-      routeType: "games",
       tech: ["Godot"],
       github: "https://github.com/ba6ul/Sudooku",
       live: "https://play.google.com/store/apps/details?id=com.hapgames.sudoku&pcampaignid=web_share",
@@ -54,7 +77,6 @@ export const portfolio: {
       category: "Mobile",
       image: "/app_banner/inicons_banner.png",
       type: "code",
-      routeType: "apps",
       tech: ["Flutter", "Dart"],
       github: "https://github.com/ba6ul/inicons",
       live: "https://play.google.com/store/apps/details?id=com.haripin.inicons",

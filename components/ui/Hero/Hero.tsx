@@ -9,11 +9,10 @@ import {
   useMotionValue,
   useSpring,
 } from "framer-motion";
-import herobabulImage from "@/assets/images/hero_babul.webp";
-import herobabulblurImage from "@/assets/images/hero_babul_blur.webp";
 import clickhere from "@/assets/images/clickhere.webp";
 import sparkleOneImage from "@/assets/images/sparkle_one_white.webp";
 import sparkleTwoImage from "@/assets/images/sparkle_two_black.webp";
+import RevealModal from "./RevealModal";
 
 interface PersonData {
   slug: string;
@@ -30,58 +29,25 @@ interface PersonData {
   experience?: any[];
 }
 
-
 interface HeroProps {
   person: PersonData;
 }
 
-
 export default function Hero({ person }: HeroProps) {
-  const { 
-    name, 
-    lname, 
-    title, 
-    description, 
-    image, 
+  const {
+    name,
+    lname,
+    title,
+    description,
+    image,
     blurImage,
     resumeUrl,
     githubUrl,
     linkedinUrl,
-    youtubeUrl 
+    youtubeUrl,
   } = person;
   const [isRevealed, setIsRevealed] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-
-  // Count-up for the 50% stat in the reveal-confirm modal. Resets to 0 and
-  // counts up each time the modal opens, so it's a small earned moment of
-  // motion rather than a static number sitting next to a sentence.
-  const [statValue, setStatValue] = useState(0);
-
-  useEffect(() => {
-    if (!showConfirm) {
-      setStatValue(0);
-      return;
-    }
-    const durationMs = 900;
-    const target = 50;
-    const startTime =
-      typeof performance !== "undefined" ? performance.now() : Date.now();
-    let frameId: number;
-
-    const tick = (now: number) => {
-      const progress = Math.min((now - startTime) / durationMs, 1);
-      // easeOutExpo-ish curve so it starts fast and settles, rather than
-      // ticking up linearly like a loading bar.
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setStatValue(Math.round(eased * target));
-      if (progress < 1) {
-        frameId = requestAnimationFrame(tick);
-      }
-    };
-
-    frameId = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(frameId);
-  }, [showConfirm]);
 
   const heroRef = useRef(null);
   const imageWrapRef = useRef(null);
@@ -176,7 +142,10 @@ export default function Hero({ person }: HeroProps) {
               <div className="relative flex h-2 w-2 items-center justify-center">
                 <span
                   className="absolute inline-flex h-full w-full rounded-full bg-emerald-500 opacity-60"
-                  style={{ animation: "ba6ul-pulse 4s cubic-bezier(0, 0, 0.2, 1) infinite" }}
+                  style={{
+                    animation:
+                      "ba6ul-pulse 4s cubic-bezier(0, 0, 0.2, 1) infinite",
+                  }}
                 />
                 <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-500" />
               </div>
@@ -195,7 +164,7 @@ export default function Hero({ person }: HeroProps) {
               </span>
             </h1>
             <p className="text-xl text-[#010D3E] tracking-tight mt-6">
-             {description}
+              {description}
             </p>
 
             <div className="flex gap-3 items-center mt-7.5">
@@ -301,14 +270,14 @@ export default function Hero({ person }: HeroProps) {
                 }}
               >
                 <Image
- src={isRevealed ? image : blurImage}
-  alt={`${name} Profile`}
-  priority
-  placeholder="empty"
-  onClick={() => {
-    if (!isRevealed) setShowConfirm(true);
-  }}
-  className="md:h-full md:w-auto md:max-w-none cursor-pointer object-contain"
+                  src={isRevealed ? image : blurImage}
+                  alt={`${name} Profile`}
+                  priority
+                  placeholder="empty"
+                  onClick={() => {
+                    if (!isRevealed) setShowConfirm(true);
+                  }}
+                  className="md:h-full md:w-auto md:max-w-none cursor-pointer object-contain"
                 />
               </motion.div>
             </AnimatePresence>
@@ -384,95 +353,14 @@ export default function Hero({ person }: HeroProps) {
         </div>
       </div>
 
-      <AnimatePresence>
-        {showConfirm && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm px-6"
-          >
-            <motion.div
-              initial={{ opacity: 0, scale: 0.94, y: 16 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.94, y: 16 }}
-              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-              className="relative w-full max-w-lg overflow-hidden rounded-2xl bg-white shadow-[0_30px_90px_rgba(10,30,50,0.25)]"
-            >
-              {/* One accent strip in the hero's own steel-blue, instead of
-                  off-palette blue/violet blurred orbs, so the popup ties
-                  back to the page itself. */}
-              <div
-                className="h-1.5 w-full"
-                style={{
-                  background: "linear-gradient(90deg, #6F9CC4, #2a3d47)",
-                }}
-              />
-
-              <div className="p-8 sm:p-10">
-                {/* The single bold moment: a large number that counts up
-                    on open. Lands first, before any explanation, so the
-                    number itself is the hook. */}
-                <div
-                  className="text-6xl sm:text-7xl font-extrabold tracking-tighter text-[#0A0A0A] tabular-nums"
-                  aria-label="50 percent"
-                >
-                  {statValue}%
-                </div>
-
-                {/* The one line that has to land in a glance. Plain,
-                    HR-register words, no study framing yet, this is the
-                    point, not the evidence for it. */}
-                <p className="mt-2 text-lg font-medium leading-snug text-[#0A0A0A]">
-                  A photo can introduce bias. So can age, gender, and race.
-                </p>
-
-                <h2 className="mt-6 text-base font-semibold text-neutral-500">
-                  Before you reveal the photo
-                </h2>
-                <p className="mt-2 text-[15px] leading-relaxed text-neutral-600">
-                  This page hides mine by default so the work gets read first.
-                  Reveal it whenever you want, it&apos;s entirely your call.
-                </p>
-
-                {/* The study, now background noise rather than the lead.
-                    Still fully present and citable, just sized and
-                    colored to be read on a second pass, not the first. */}
-                <p className="mt-5 text-xs leading-relaxed text-neutral-400">
-                  That 50% figure comes from a 2004 study that sent close to
-                  5,000 identical resumes to real job ads, changing only the
-                  name at the top.{" "}
-                  <span className="whitespace-nowrap">
-                    Bertrand, M. &amp; Mullainathan, S. (2004).
-                  </span>{" "}
-                  <em>
-                    Are Emily and Greg More Employable than Lakisha and Jamal?
-                  </em>{" "}
-                  American Economic Review, 94(4), 991&ndash;1013.
-                </p>
-
-                <div className="mt-7 flex flex-col-reverse gap-2 sm:flex-row sm:justify-end">
-                  <button
-                    onClick={() => setShowConfirm(false)}
-                    className="rounded-lg border border-neutral-200 px-4 py-2.5 text-sm font-medium text-neutral-700 transition hover:bg-neutral-50"
-                  >
-                    Keep it blurred
-                  </button>
-                  <button
-                    onClick={() => {
-                      setIsRevealed(true);
-                      setShowConfirm(false);
-                    }}
-                    className="rounded-lg bg-black px-4 py-2.5 text-sm font-medium text-white transition hover:bg-black/80"
-                  >
-                    Reveal photo
-                  </button>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <RevealModal
+        isOpen={showConfirm}
+        onConfirm={() => {
+          setIsRevealed(true);
+          setShowConfirm(false);
+        }}
+        onCancel={() => setShowConfirm(false)}
+      />
     </section>
   );
 }

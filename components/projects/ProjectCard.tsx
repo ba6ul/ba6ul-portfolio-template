@@ -14,8 +14,8 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import type { Project } from "@/data/projects";
-import { getTechIcon } from "@/data/techIcons";
+import type { Project } from "@/data/content/projects";
+import { getTechIcon } from "@/data/content/techIcons";
 
 const cherryBomb = Cherry_Bomb_One({ weight: "400", subsets: ["latin"] });
 
@@ -38,10 +38,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
     live,
     devlog,
     featured,
-    routeType,
   } = project;
 
-  const detailHref = `/${routeType}/${id}`;
+  // Every coded project gets a detail page at /projects/[id] now (video
+  // items are rendered via VideoCard instead and never reach this
+  // component, so there's no type check needed here anymore).
+  const detailHref = `/projects/${id}`;
 
   const handleCardClick = () => {
     router.push(detailHref);
@@ -55,7 +57,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     <motion.div
       initial={{ opacity: 0, y: 40 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
+      viewport={{ once: false, amount: 0.2 }}
       transition={{ duration: 0.5, ease: "easeOut" }}
       className="h-full"
     >
@@ -86,7 +88,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
           <CardContent className="flex flex-1 flex-col gap-3 px-2 pt-4 pb-0">
             
             <h3
-              className={`${cherryBomb.className} min-h-8 text-4xl leading-relaxed sm:text-5xl md:text-6xl lg:text-7xl ${
+              className={`${cherryBomb.className} line-clamp-2 min-h-8 text-4xl leading-relaxed sm:text-5xl md:text-6xl lg:text-7xl ${
                 featured ? "text-white" : "text-foreground"
               }`}
             >

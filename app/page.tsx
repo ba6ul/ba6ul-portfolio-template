@@ -1,5 +1,5 @@
-import Hero from "@/components/Hero";
-import demo_babul from "@/data/demo_ba6ul";
+import Hero from "@/components/ui/Hero/Hero";
+import demo_babul from "@/data/team/demo/ba6ul_index_demo";
 import { FeaturedProjects } from "@/components/projects/FeaturedProjects";
 import { TechStackTicker } from "@/components/TechStackTicker";
 import Experience from "@/components/Experience";
@@ -10,6 +10,7 @@ export default function YourPage() {
     <>
       <Hero person={demo_babul} />
       <TechStackTicker />
+      {/* {githubUsername && <GitHubActivity username={githubUsername} />} */}
       <Experience items={demo_babul.experience} />
       <FeaturedProjects />
       <VideoShowcase />

@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Star } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ProjectCard } from "@/components/projects/ProjectCard";
-import { portfolio, type Project } from "@/data/projects";
+import { portfolio, type Project } from "@/data/content/projects";
 
 function reorderFeaturedToCenter(projects: Project[]): Project[] {
   const featuredIndex = projects.findIndex((p) => p.featured);
@@ -45,11 +45,10 @@ export function FeaturedProjects() {
         </h2>
         <Link
           href="/projects"
-
           className="text-xs sm:text-sm font-medium text-[#C15F3C] hover:text-[#C15F3C]/80 transition-colors whitespace-nowrap"
         >
           View all projects →
-        </Link> 
+        </Link>
       </div>
 
       {/* Mobile Animated Slider */}

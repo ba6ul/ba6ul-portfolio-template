@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import {ExperienceItem} from "@/data/types"
+import {ExperienceItem} from "@/data/content/types"
 import { Briefcase } from "lucide-react";
 
 const MONTHS = [

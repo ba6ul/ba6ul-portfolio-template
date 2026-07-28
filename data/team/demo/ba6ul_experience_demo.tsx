@@ -11,7 +11,7 @@ import firebaseLogo from "@/assets/svg/firebaseLogo.svg"
 import blocLogo from "@/assets/svg/blocLogo.svg"
 
 
-import { ExperienceItem } from "./types"
+import { ExperienceItem } from "../../content/types"
 
 export const techExperience: ExperienceItem[] = [
   {
