@@ -1,9 +1,17 @@
 # Portfolio template
 
+[![GitHub stars](https://img.shields.io/github/stars/ba6ul/ba6ul-portfolio-template?style=social)](https://github.com/ba6ul/ba6ul-portfolio-template/stargazers)
+
 A single-page developer portfolio built with Next.js + Tailwind CSS.
 
-![preview](./preview/preview.png)
+If this saved you time, consider giving it a ⭐ — it helps others find it.
+
+![preview](./preview/hero-preview.png)
+![preview](./preview/hero-preview.gif)
+Hero section with a photo-reveal interaction.
+
 ![tech stack preview](./preview/tech-stack-preview.gif)
+Scrolling ticker of your tech stack icons.
 
 ## Setup
 
