@@ -3,6 +3,7 @@
 A single-page developer portfolio built with Next.js + Tailwind CSS.
 
 ![preview](./preview/preview.png)
+![tech stack preview](./preview/tech-stack-preview.gif)
 
 ## Setup
 
